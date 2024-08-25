@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 // mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/<database-name>?retryWrites=true&w=majority
 const dbConnect=async()=>{
     try {
-        const connected=mongoose.connect(process.env.MONGO_URL);
-        console.log(`mongo db connected${(await connected).connection.host} `)
+        const connected=await mongoose.connect(process.env.MONGO_URL);
+        console.log(`mongo db connected${( connected).connection.host} `)
     } catch (error) {
         console.log(`Error :${error.message}`);
         process.exit(1);
