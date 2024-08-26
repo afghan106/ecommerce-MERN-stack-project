@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 // mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/<database-name>?retryWrites=true&w=majority
 const dbConnect=async()=>{
     try {
-        const connected=await mongoose.connect(process.env.MONGO_URL);
+
+        const connected=await mongoose.connect(process.env.MONGO_URL ||"mongodb://127.0.0.1:27017/ecommerce_api");
         console.log(`mongo db connected${( connected).connection.host} `)
     } catch (error) {
         console.log(`Error :${error.message}`);
