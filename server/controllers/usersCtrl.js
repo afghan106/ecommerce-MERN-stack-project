@@ -1,6 +1,10 @@
 import User from "../model/User.js";
 import bcrypt from 'bcrypt';
-export const registerUserCtrl=async(req,res)=>{
+import asynchandler from 'express-async-handler'
+import { genereateToken } from "../utils/generateToken.js";
+import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
+import { verifyToken } from "../utils/verifyToken.js";
+export const registerUserCtrl=asynchandler(async(req,res)=>{
     const{fullname,email,password}=req.body;
 
 const userExist=await User.findOne({email});
@@ -11,7 +15,7 @@ if(userExist){
     })
 }
 //hash password 
-const salt= await bcrypt.genSalt(100);
+const salt= await bcrypt.genSalt(10);
 const hashedpassword=await bcrypt.hash(password,salt);
 
 //create user
@@ -28,5 +32,41 @@ res.status(201).json({
 })
 
 
+});
+// desc  login user
+//@route   post/api/v1/users/login
+//@ access  public 
+export const loginUserCtrl=asynchandler(async(req,res)=>{
+    const {email,password}=req.body;
 
-}
+    const userFound=await User.findOne({email,})
+
+// find the hash of the password with bcrype.compare function
+    if (userFound && await bcrypt.compare(password,userFound?.password)) {
+        res.json({
+            status:"success",
+            message:"Login successfully",
+            userFound,
+            token: genereateToken(userFound?._id)
+        })
+
+    }else{
+        throw new Error('Invalid Login credential (email or password)')
+    }
+
+
+})
+
+//@desc     get user profile
+//@route    get/api/v1/users/profile
+//access    private
+
+export const getUserProfileCtrl=asynchandler(async(req,res)=>{
+const token=getTokenFromHeader(req);
+//verify token
+const verified=verifyToken(token);
+console.log(req);
+res.json({msg:"welcome profile page "})
+
+    // res.json({meg:'wellcome to ouer page '});
+})

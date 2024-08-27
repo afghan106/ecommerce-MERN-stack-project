@@ -8,7 +8,7 @@ const dbConnect=async()=>{
 
 
         const connected=await mongoose.connect("mongodb://127.0.0.1:27017/ecommerce_api");
-        console.log(`mongo db connected${( connected).connection.host} `)
+        console.log(`mongo db is  connected to  :${( connected).connection.db.namespace} on Mongo DB on port :${connected.connection.host}  `)
     } catch (error) {
         console.log(`Error :${error.message}`);
         process.exit(1);
