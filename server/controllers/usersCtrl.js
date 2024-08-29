@@ -4,6 +4,9 @@ import asynchandler from 'express-async-handler'
 import { genereateToken } from "../utils/generateToken.js";
 import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
 import { verifyToken } from "../utils/verifyToken.js";
+
+
+
 export const registerUserCtrl=asynchandler(async(req,res)=>{
     const{fullname,email,password}=req.body;
 
@@ -33,6 +36,8 @@ res.status(201).json({
 
 
 });
+
+
 // desc  login user
 //@route   post/api/v1/users/login
 //@ access  public 
@@ -62,11 +67,9 @@ export const loginUserCtrl=asynchandler(async(req,res)=>{
 //access    private
 
 export const getUserProfileCtrl=asynchandler(async(req,res)=>{
-const token=getTokenFromHeader(req);
+const token=await getTokenFromHeader(req);
 //verify token
 const verified=verifyToken(token);
-console.log(req);
-res.json({msg:"welcome profile page "})
-
+res.send(`user has loged in with this token :${token}`)
     // res.json({meg:'wellcome to ouer page '});
 })
