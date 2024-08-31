@@ -49,7 +49,7 @@ export const productCtrl = asyncHandler(async (req, res) => {
 //route
 //access public
 
-export const getProductCtrl=asyncHandler(async(req,res)=>{
+export const getProductsCtrl=asyncHandler(async(req,res)=>{
 
 //search product with our given option or name 
 
@@ -124,3 +124,19 @@ const products=await productsQuery;
   });
 });
 
+//get single product
+//route:GET/api/product/:id
+//access :public
+
+export const getProductCtrl=asyncHandler(async(req,res)=>{
+
+const product=await Product.findById(req.params.id)
+   if (!product) {
+    throw new Error("Product not found with this id");
+   }
+   res.json({
+    status:"success",
+    message:"Product fetched successfully",
+    product
+   })
+})
