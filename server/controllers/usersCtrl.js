@@ -44,7 +44,7 @@ res.status(201).json({
 export const loginUserCtrl=asynchandler(async(req,res)=>{
     const {email,password}=req.body;
 
-    const userFound=await User.findOne({email,})
+    const userFound=await User.findOne({email})
 
 // find the hash of the password with bcrype.compare function
     if (userFound && await bcrypt.compare(password,userFound?.password)) {
