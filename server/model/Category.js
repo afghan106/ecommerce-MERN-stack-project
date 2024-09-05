@@ -2,14 +2,14 @@
 import mongoose, { mongo } from "mongoose";
 
 const schema=mongoose.Schema;
-const CategorySChema=new Schema(
+const CategorySChema=new mongoose.Schema(
     {
         name:{
             type:String,
             required:true
         },
         user:{
-             type:mongoose.schema.Type.ObjectId,
+             type:mongoose.Schema.Types.ObjectId,
              ref:"User",
              required:true
         },
