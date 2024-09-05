@@ -13,6 +13,7 @@ export const isLogedIn=(req,res,next)=>{
 //save the user into req obj
     req.userAuthId=decodedUser?.id;
     next();
+   
     }
     
 }

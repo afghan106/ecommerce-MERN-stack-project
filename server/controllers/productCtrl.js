@@ -31,7 +31,7 @@ export const productCtrl = asyncHandler(async (req, res) => {
     category,
     sizes,
     colors,
-    user:req.userAuthId, 
+    user: req.userAuthId, 
     price, 
     totalQty,
     totalSold,
@@ -140,3 +140,71 @@ const product=await Product.findById(req.params.id)
     product
    })
 })
+
+
+//update product
+// Route: PUT /api/products/:id/update
+//access: private Admin
+export const updateProductCtrl=asyncHandler(async(req,res)=>{
+  const {
+    name,
+    description,
+    brand,
+    category,
+    sizes,
+    colors,
+    user,
+    price,
+    totalQty,
+    totalSold,
+  } = req.body;
+  //update
+const userAuthId=req.userAuthId;
+
+
+if (!userAuthId) {
+ res.json({message:"Please sign in before you update/please add the autherization with token of the user in the Header section"});
+}
+const product=await Product.findByIdAndUpdate(req.params.id,{
+  name,
+    description,
+    brand,
+    category,
+    sizes,
+    colors,
+    user:req.userAuthId,
+    price,
+    totalQty,
+    totalSold,
+},{
+  new:true
+})
+    //  res.json({
+    //   status:"success",
+    //   message:"Product updated successfully",
+    //   product
+    //  })
+    
+    
+  });
+
+
+
+  export const deleteProductCtro=asyncHandler(async(req,res)=>{
+
+    const product=await Product.findById(req.params.id);
+if (!req.userAuthId) {
+ throw new Error("the user is not loged in please first login/sign-up")
+} else {
+  if (!product) {
+  throw new Error(`there is no product with this product id :${req.userAuthId}`);
+  } else {
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({
+      status:"success",
+      message:"the product deleted successfully",
+      product
+    })
+  }
+}
+  })

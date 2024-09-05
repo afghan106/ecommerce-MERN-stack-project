@@ -1,5 +1,5 @@
 export const getTokenFromHeader=(req)=>{
-    const token=req?.headers?.authorization?.split(" ")[1];
+    const token=req?.headers?.authorization;
 if (token===undefined) {
     return "NO token found in the header"
     

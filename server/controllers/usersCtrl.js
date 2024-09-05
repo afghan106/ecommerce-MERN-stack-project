@@ -69,7 +69,9 @@ export const loginUserCtrl=asynchandler(async(req,res)=>{
 export const getUserProfileCtrl=asynchandler(async(req,res)=>{
 const token=await getTokenFromHeader(req);
 //verify token
-const verified=verifyToken(token);
-res.send(`user has loged in with this token :${token}`)
-    // res.json({meg:'wellcome to ouer page '});
+
+ if (!verifyToken(token)) {
+    throw new Error("this user is not loged in")
+ }
+ res.json({message:"User Token  :"+ token,});
 })
