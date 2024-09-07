@@ -47,3 +47,15 @@ export const getAllCategoriesCtrl=asynchandler(async(req,res)=>{
       categories
    })
 })
+
+
+export const getCategoryCtrl=asynchandler(async(req,res)=>{
+   const category=await Category.findById(req.params.id);
+
+   res.json({
+      status:"success",
+      message:"Categories fetched successfully",
+      category
+   })
+})
+
