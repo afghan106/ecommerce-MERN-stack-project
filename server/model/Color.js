@@ -11,13 +11,13 @@ const ColorSchema=new mongoose.Schema({
         ref:"User",
         required:true
     },
-    products:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Product",
+    // products:[
+    //     {
+    //         type:mongoose.Schema.Types.ObjectId,
+    //         ref:"Product",
 
-        },
-    ],
+    //     },
+    // ],
 })
 
 const Color=mongoose.model('Color',ColorSchema);
