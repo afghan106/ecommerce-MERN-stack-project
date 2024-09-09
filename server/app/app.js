@@ -6,6 +6,7 @@ import dbConnect from '../config/dbConnect.js';
 import { globalErrHandler,notFound } from '../middlewares/globalErrHandler.js';
 import productsRouter from '../routes/productRoute.js';
 import categoryRouter from '../routes/categoryRoute.js';
+import BrandRouter from '../routes/brandRouter.js';
 
 
 //this is the db connection
@@ -19,7 +20,7 @@ app.use(express.json());
  app.use('/api/v1/users/',userRoutes)
  app.use('/api/v1/products',productsRouter)
  app.use('/api/v1/category',categoryRouter)
-
+ app.use('/api/v1/brand',BrandRouter)
  
  //this code is from err midelware
  app.use(notFound);

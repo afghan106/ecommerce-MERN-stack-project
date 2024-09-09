@@ -7,8 +7,8 @@ const categoryRouter=express.Router();
 categoryRouter.post('/createCategory',isLogedIn,createCategory);
 categoryRouter.get("/getallcategories",getAllCategoriesCtrl);
 categoryRouter.get("/getcategory/:id",getCategoryCtrl);
-categoryRouter.get("/updatecategory/:id",isLogedIn,updateCategoryCtrl);
-categoryRouter.get("/deletecategory/:id",isLogedIn,deleteCategoryCtrl);
+categoryRouter.put("/updatecategory/:id",isLogedIn,updateCategoryCtrl);
+categoryRouter.delete("/deletecategory/:id",isLogedIn,deleteCategoryCtrl);
 
 
 export default categoryRouter;
