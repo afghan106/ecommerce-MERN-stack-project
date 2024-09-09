@@ -11,4 +11,4 @@ BrandRouter.put("/updatebrand/:id",isLogedIn,updateBrandCtrl);
 BrandRouter.delete("/deletebrand/:id",isLogedIn,deleteBrandCtrl);
 
 
-export default BrandRouter;c
+export default BrandRouter;

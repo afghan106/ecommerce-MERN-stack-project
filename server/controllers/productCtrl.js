@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Product from '../model/Product.js';
 import { query } from 'express';
 import Category from '../model/Category.js';
+import Brand from '../model/Brand.js';
 
 export const productCtrl = asyncHandler(async (req, res) => {
   const {
@@ -32,6 +33,19 @@ if(!categoryFound){
   )
 
 }
+
+//create brand
+const brandFound=await Brand.findOne({name:brand})
+
+if(!brandFound){
+  throw new Error(
+    "brand not found,plaese create brand name  first or check your brand name"
+  )
+
+}
+
+
+
   // Create product
   const product = await Product.create({
     name,
@@ -49,6 +63,12 @@ if(!categoryFound){
 categoryFound.products.push(product._id)
 //resave the product
 await categoryFound.save();
+
+//push the product into category 
+brandFound.products.push(product._id)
+//resave the product
+await brandFound.save();
+
   // Respond with the created product
   res.status(201).json({
     status: 'successful',
