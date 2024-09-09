@@ -59,3 +59,34 @@ export const getCategoryCtrl=asynchandler(async(req,res)=>{
    })
 })
 
+export const updateCategoryCtrl=asynchandler(async(req,res)=>{
+//update category
+//PUT  /api/categories/:id
+//access/private/admin
+
+const {name}=req.body;
+
+if (!req.userAuthId) {
+    res.json({message:"the user is not loged in please first of all login/singup"})
+} else {
+    const category=await Category.findByIdAndUpdate(req.params.id,{
+        name
+    },{
+        new:true
+    });
+    res.json({
+        status:"success",
+        message:"category update successfully",
+        category
+    })
+}
+})
+
+
+export const deleteCategoryCtrl=asynchandler(async(req,res)=>{
+    await Category.findByIdAndDelete(req.params.id);
+    res.json({
+        status:"success",
+        message:"Category deleted successfully"
+    })
+})
