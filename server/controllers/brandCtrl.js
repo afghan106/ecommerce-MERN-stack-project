@@ -84,9 +84,18 @@ if (!req.userAuthId) {
 
 
 export const deleteBrandCtrl=asynchandler(async(req,res)=>{
+   if (!req.userAuthId) {
+    throw new Error("You are not login please login/Register")
+   } else {
+    const brandexits=await Brand.findById(req.params.id);
+    if (!brandexits) {
+       throw new Error("the brand you want to delete is not exists in the database ")
+    }
     await Brand.findByIdAndDelete(req.params.id);
     res.json({
         status:"success",
-        message:"brand deleted successfully"
+        message:`brand with this id :( ${req.params.id} )is deleted successfully`,
+
     })
+   }
 })
