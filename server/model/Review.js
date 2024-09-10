@@ -8,8 +8,8 @@ const ReviewSchema=new mongoose.Schema({
         ref:"User",
         required:[true,"review must belong to a user"],
     },
-    produc:{
-        type:mongoose.Schema.type.ObjectId,
+    product:{
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Product",
         required:[true,"review must belong to a product"],
     },

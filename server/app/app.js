@@ -8,6 +8,7 @@ import productsRouter from '../routes/productRoute.js';
 import categoryRouter from '../routes/categoryRoute.js';
 import BrandRouter from '../routes/brandRouter.js';
 import ColorRouter from '../routes/ColorRoute.js';
+import ReviewRouter from '../routes/reviewRouter.js';
 
 
 //this is the db connection
@@ -23,7 +24,7 @@ app.use(express.json());
  app.use('/api/v1/category',categoryRouter);
  app.use('/api/v1/brand',BrandRouter);
  app.use('/api/v1/color',ColorRouter);
-
+app.use('/api/v1/review',ReviewRouter)
 
  //this code is from err midelware
 app.use(notFound);
