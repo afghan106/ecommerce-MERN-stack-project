@@ -144,8 +144,8 @@ if (startIndex>0) {
   };
 
 
-
-const products=await productsQuery;
+//awainting the query
+const products=await productsQuery.populate("reviews");
   res.json({
     status:'success',
     total,
@@ -162,7 +162,7 @@ const products=await productsQuery;
 
 export const getProductCtrl=asyncHandler(async(req,res)=>{
 
-const product=await Product.findById(req.params.id)
+const product=await Product.findById(req.params.id).populate("reviews");
    if (!product) {
     throw new Error("Product not found with this id");
    }
