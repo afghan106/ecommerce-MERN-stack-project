@@ -59,7 +59,32 @@ const ProductSchema=new mongoose.Schema({
         required:true,
         default:0,
     },
-},{timestamps:true,toJSON:{virtuals:true}});
+},{
+    timestamps:true,
+    toJSON:{virtuals:true}}
+);
+//virtuals
+//total rating
+
+ProductSchema.virtual('totalReviews').get(function(){
+    const product=this;
+    return product?.reviews?.length;
+ 
+})
+
+//avrage rating
+ProductSchema.virtual('averageRating').get(function(){
+    let ratingsTotal=0;
+    const product=this;
+    product?.reviews?.forEach((review)=>{
+        ratingsTotal += review?.rating;
+    });
+
+    //calculate the average rating
+    const averageRating=ratingsTotal / product?.reviews?.length;
+    return averageRating;
+
+})
 
 const Product=mongoose.model("Product",ProductSchema);
 
