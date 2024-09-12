@@ -81,7 +81,7 @@ ProductSchema.virtual('averageRating').get(function(){
     });
 
     //calculate the average rating
-    const averageRating=ratingsTotal / product?.reviews?.length;
+    const averageRating=Number(ratingsTotal / product?.reviews?.length).toFixed(1);
     return averageRating;
 
 })
