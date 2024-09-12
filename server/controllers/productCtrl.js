@@ -144,7 +144,7 @@ if (startIndex>0) {
   };
 
 
-//awainting the query
+//awaiting the query
 const products=await productsQuery.populate("reviews");
   res.json({
     status:'success',
@@ -166,6 +166,7 @@ const product=await Product.findById(req.params.id).populate("reviews");
    if (!product) {
     throw new Error("Product not found with this id");
    }
+
    res.json({
     status:"success",
     message:"Product fetched successfully",
