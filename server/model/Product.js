@@ -64,6 +64,12 @@ const ProductSchema=new mongoose.Schema({
     toJSON:{virtuals:true}}
 );
 //virtuals
+//qty lefted
+ProductSchema.virtual("qtyleft").get(function(){
+    const product=this;
+    return product.totalQty-product.totalSold;
+})
+
 //total rating
 
 ProductSchema.virtual('totalReviews').get(function(){

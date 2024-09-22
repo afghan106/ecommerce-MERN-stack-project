@@ -1,9 +1,8 @@
-import mongoose, { mongo } from "mongoose";
-import { payment, refund } from "paypal-rest-sdk";
+import mongoose from "mongoose";
 
 
 //generate random number
-const randomText=Math.random().toString(36).substring(7).toLocaleUpperCaseCase();
+const randomText=Math.random().toString(36).substring(7).toLocaleUpperCase();
 const randomnumber=Math.floor(1000+Math.random()*90000)
 const orderSchema=new mongoose.Schema({
     user:{
@@ -11,18 +10,16 @@ const orderSchema=new mongoose.Schema({
         ref:"User",
         required:true,
     },
-    orderItem:[
-{
+    orderItems:[{
     type:Object,
-    required:true,
-}
-    ]
+    required:true
+    }]
 ,
 shippingAddress:{
     type:Object,
     required:true
 },
-OrderNUmber:{
+OrderNumber:{
     type:String,
     required:true,
     default:randomText+randomnumber,
@@ -37,6 +34,10 @@ paymentStatus:{
 paymentMethod:{
     type:String,
     default:"Not specified"
+},
+totalprice:{
+    type:Number,
+    default:0.0
 },
 currency:{
     type:String,
