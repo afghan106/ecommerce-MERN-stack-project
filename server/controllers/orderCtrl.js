@@ -8,6 +8,13 @@ export const createOrderCtrl=asynchandler(async(req,res)=>{
 
     //get the payload.
     const {orderItems,shippingAddress,totalPrice}=req.body;
+// check if user has shipping address
+    //find the user.
+    const user=await User.findById(req.userAuthId);
+  
+if (!user?.hasShippingAddress) {
+    throw new Error("please provide shipping address")
+}
 
 
 //     // check ir order is not empty.
@@ -17,9 +24,7 @@ export const createOrderCtrl=asynchandler(async(req,res)=>{
 
 
 
-    //find the user.
-   const user=await User.findById(req.userAuthId);
-  
+
   //place /create order - save into db
  const order=await Order.create({
     user:user?._id,

@@ -75,3 +75,33 @@ const token=await getTokenFromHeader(req);
  }
  res.json({message:"User Token  :"+ token,});
 })
+
+//update user shipping address
+// put/api/v1/users/update/shipping
+//access:Private
+
+export const updateShippingAddressctrl=asynchandler(async(req,res)=>{
+   // all data from the body 
+   const {firsName,lastName,address,city,postalCode,province,phone}=req.body;
+    
+
+   //find user by id 
+
+   const user=await User.findByIdAndUpdate(req.userAuthId,{
+    shippingAddress: {firsName,lastName,address,city,postalCode,province,phone},
+    hasShippingAddress:true
+   },
+{
+    new:true
+});
+
+// send the response to the fron
+
+res.json({
+    status:"success",
+    message:"User shipping address update successfully",
+    user
+})
+
+
+});
