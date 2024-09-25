@@ -2,6 +2,19 @@ import asynchandler from 'express-async-handler';
 import Order from '../model/Order.js';
 import User from '../model/User.js';
 import Product from '../model/Product.js';
+import Stripe from 'stripe';
+import dotenv from 'dotenv';
+dotenv.config();
+
+//creaet order 
+//POST /api/v1/orders
+//private
+
+
+
+// this is how the stripe instance
+
+const stripe=new Stripe(process.env.STRIPE_KEY);
 
 
 export const createOrderCtrl=asynchandler(async(req,res)=>{
@@ -55,12 +68,34 @@ await Promise.all(orderItems.map(async (order) => {
 //  // push order into user
 user.orders.push(order?._id);
 await user.save();
+//MAKE THE PAYMENT WITH STRIPE SERVER
+ const session=await stripe.checkout.sessions.create({
+    line_items:[{
+        price_data:{
+        currency:'usd',
+        product_data:{
+            name:"Hats",
+            description:"best hat",
+        },
+        unit_amount:10*100,
+        },
+        quantity:4
+    }],
+    mode:'payment',
+    success_url:"http://localhost:3000/success",
+    cancel_url:"http://localhost:3000/success",
+ })
 
-res.json({
-   success:true,
-   message:"order created",
-   order,
-   user,
-})
+res.send({url:session.url});
+
+
+
+
+// res.json({
+//    success:true,
+//    message:"order created",
+//    order,
+//    user,
+// })
 
 });
